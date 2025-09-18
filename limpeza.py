@@ -2,7 +2,7 @@ import pandas as pd
 from pandas import DataFrame
 
 def dataset_limpo() -> DataFrame:
-    df = pd.read_csv("/home/julioccds/Documentos/app/bancodados.csv",sep=";",decimal=",")
+    df = pd.read_csv("bancodados.csv",sep=";",decimal=",")
     df = df.drop(0,axis=0)
     nomes_colunas = {
     "Unnamed: 0" : "Sigla",
