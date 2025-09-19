@@ -33,9 +33,7 @@ linhas = visualizacao_grafica_percentual.number_input(
     value=5,
     max_value=quantidade_linhas()
 )
-#visualizacao_grafica_percentual.button(
-#    "Gerar Gráfico"
-#)
+
 visualizacao_grafica_percentual.pyplot(
     fig=agrupamento_municipio_percentual(
         tipo,
