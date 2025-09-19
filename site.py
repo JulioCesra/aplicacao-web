@@ -1,7 +1,7 @@
 import streamlit as st
 from analise import *
 
-st.title("Análise de Dados Sóciais com Python")
+st.title("Análise de Dados Sociais com Python")
 
 descricao = st.container(border=True)
 descricao.text("Esta aplicação web foi desenvolvida com o proprósito de facilitar a visualização e manipulação de dados sociais, enfatizando a taxa de analfabetismo da população de 15 anos ou mais por município do maranhão.")
