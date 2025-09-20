@@ -26,7 +26,7 @@ def agrupamento_municipio_percentual(tipo:str,ordenacao:str,quantidade_linhas:in
             grafico.bar_label(valor,fmt="%.2f%%")
         ax.set_title(tipo)
         ax.set_xlabel("Municípios")
-        ax.set_ylabel("Distribuição")
+        ax.set_ylabel("Distribuição Percentual (%)")
         sns.despine()
     else:
         if(ordenacao == "Crescente"):
@@ -38,7 +38,7 @@ def agrupamento_municipio_percentual(tipo:str,ordenacao:str,quantidade_linhas:in
             grafico.bar_label(valor,fmt="%.2f%%")
         ax.set_title(tipo)
         ax.set_xlabel("Municípios")
-        ax.set_ylabel("Distribuição")
+        ax.set_ylabel("Distribuição Percentual (%)")
         sns.despine()
     return fig
 
@@ -111,6 +111,7 @@ def distribuicao_alfabetismo_analfabetismo_munipicios(ordenacao:str,quantidade_l
 
 def distribuicao_anos():
     colunas_anos = ["1991 (%)","2000 (%)","2010 (%)","2022 (%)"]
+    colunas_anos_formatada = [valor.replace(" (%)","") for valor in colunas_anos]
     fig,axis = plt.subplots(nrows=4,ncols=3,figsize=(16,4 * 5))
     for i, coluna in enumerate(colunas_anos):
         Quartil1 = df[coluna].quantile(0.25)
@@ -121,16 +122,19 @@ def distribuicao_anos():
 
         sns.boxplot(data=df[coluna],ax=axis[i][0])
         axis[i][0].set_title("Resumo Estatístico das Taxas de Analfabetismo por Município")
-        axis[i][0].set_ylabel(f"Ano Analisado: {str(coluna)}")
+        axis[i][0].set_ylabel("Taxa de Analfabetismo (%)")
+        axis[i][0].set_xlabel(f"Ano de {colunas_anos_formatada[i]}")
 
         sns.scatterplot(x=df.index,y=df[coluna],ax=axis[i][1],color=cores)
         axis[i][1].set_title("Dispersão das Taxas de Analfabetismo nos Municípios")
-        axis[i][1].set_ylabel("")
-        axis[i][1].set_xlabel("")
-
-        sns.violinplot(data=df[coluna],ax=axis[i][2])
+        axis[i][1].set_ylabel("Taxa de Analfabetismo (%)")
+        axis[i][1].set_xlabel("Dispersão das Taxas")
+        
+        sns.violinplot(data=df[coluna],ax=axis[i][2],orient='h')
+        
         axis[i][2].set_title("Densidade e Distribuição das Taxas de Analfabetismo")
-        axis[i][2].set_ylabel("")
+        axis[i][2].set_xlabel("Taxa de Analfabetismo (%)")
+        axis[i][2].set_ylabel(f"Ano de {colunas_anos_formatada[i]}")
 
     plt.tight_layout()
     return fig
@@ -140,8 +144,9 @@ def nomes_municipios():
 
 def grafico_progressao_unico_municipio(municipio:str):
     colunas_anos = ["1991 (%)","2000 (%)","2010 (%)","2022 (%)"]
+    colunas_anos_formatada = [valor.replace(" (%)","") for valor in colunas_anos]
     dados_municipio = df[df["Município"] == municipio]
-    anos = dados_municipio[colunas_anos].columns
+    anos = colunas_anos_formatada
     valores = dados_municipio[colunas_anos].values.reshape(1,-1)[0]
     fig, ax = plt.subplots(figsize=(10,5))
     sns.lineplot(
@@ -175,11 +180,13 @@ def grafico_progressao_unico_municipio(municipio:str):
 def grafico_progressao_municipios(municipios:str):
     fig, ax = plt.subplots(figsize=(10,5))
     colunas_anos = ["1991 (%)","2000 (%)","2010 (%)","2022 (%)"]
+    colunas_anos_formatada = [valor.replace(" (%)","") for valor in colunas_anos]
     df_comparacao = df[df["Município"].isin(municipios)]
+    df_comparacao = df_comparacao.rename(columns=dict(zip(colunas_anos, colunas_anos_formatada)))
     df_agrupado_municipios = pd.melt(
         df_comparacao,
         id_vars=["Município"],
-        value_vars=colunas_anos,
+        value_vars=colunas_anos_formatada,
         var_name="Ano",
         value_name="Taxa"
     )
@@ -201,7 +208,8 @@ def grafico_progressao_municipios(municipios:str):
             fontsize=8,
             fontweight="bold"
         )
-    ax.set_title(f"Taxa de Analfabetismo entre os Municípios {municipios}")
+    municipios_str = ', '.join(municipios)
+    ax.set_title(f"Taxa de Analfabetismo entre os Municípios {municipios_str}")    
     ax.set_xlabel("Ano")
     ax.set_ylabel("Taxa de Analfabetismo (%)")
     return fig
