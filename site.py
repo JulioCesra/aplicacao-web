@@ -4,7 +4,7 @@ from analise import *
 st.title("Análise de Dados Sociais com Python")
 
 descricao = st.container(border=True)
-descricao.text("Esta aplicação web foi desenvolvida com o proprósito de facilitar a visualização e manipulação de dados sociais, enfatizando a taxa de analfabetismo da população de 15 anos ou mais por município do maranhão.")
+descricao.text("Esta aplicação web foi desenvolvida com o proprósito de facilitar a visualização e manipulação de dados sociais, enfatizando a taxa de analfabetismo da população de 15 anos ou mais por município do Maranhão.")
 
 st.subheader("Visualização dos Dados")
 visualizacao_dados = st.container(border=True)
