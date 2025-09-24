@@ -39,7 +39,8 @@ visualizacao_grafica_percentual.pyplot(
         tipo,
         ordenacao,
         linhas
-    )
+    ),
+    width="stretch"
 )
 
 st.subheader(
@@ -61,7 +62,8 @@ distribuicao.pyplot(
     fig=distribuicao_alfabetismo_analfabetismo_munipicios(
         ordenacao,
         linhas
-    )
+    ),
+    width="stretch"
 )
 
 st.subheader(
@@ -69,7 +71,8 @@ st.subheader(
 )
 distribuicao_numericos = st.container(border=True)
 distribuicao_numericos.pyplot(
-    fig=distribuicao_anos()
+    fig=distribuicao_anos(),
+    width="stretch"
 )
 
 st.subheader(
@@ -84,7 +87,8 @@ municipio_escolhido = progressao_analfabetismo.selectbox(
 progressao_analfabetismo.pyplot(
     fig=grafico_progressao_unico_municipio(
         municipio_escolhido
-    )
+    ),
+    width="stretch"
 )
 
 st.subheader(
@@ -99,7 +103,8 @@ municipios_escolhidos = grafico_comparativo.multiselect(
 )
 if(len(municipios_escolhidos) > 1):
     grafico_comparativo.pyplot(
-        fig=grafico_progressao_municipios(municipios_escolhidos)
+        fig=grafico_progressao_municipios(municipios_escolhidos),
+        width="stretch"
     )
 else:
     grafico_comparativo.warning("Por favor, selecione mais de um município para continuar.")
