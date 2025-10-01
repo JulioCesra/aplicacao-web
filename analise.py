@@ -37,8 +37,8 @@ def agrupamento_municipio_percentual(tipo:str,ordenacao:str,quantidade_linhas:in
         for valor in ax.containers:
             grafico.bar_label(valor,fmt="%.2f%%")
         ax.set_title(tipo)
-        ax.set_xlabel("Municípios")
-        ax.set_ylabel("Distribuição Percentual (%)")
+        ax.set_ylabel("Municípios")
+        ax.set_xlabel("Distribuição Percentual (%)")
         sns.despine()
     return fig
 
