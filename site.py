@@ -34,7 +34,7 @@ linhas = visualizacao_grafica_percentual.number_input(
     max_value=quantidade_linhas()
 )
 
-visualizacao_grafica_percentual.pyplot(
+st.pyplot(
     fig=agrupamento_municipio_percentual(
         tipo,
         ordenacao,
@@ -58,7 +58,7 @@ ordenacao = distribuicao.radio(
     options=["Crescente","Decrescente"],
     key=2
 )
-distribuicao.pyplot(
+st.pyplot(
     fig=distribuicao_alfabetismo_analfabetismo_munipicios(
         ordenacao,
         linhas
@@ -70,7 +70,7 @@ st.subheader(
     "Visualização da Distribuição dos Valores Númericos de Cada Ano"
 )
 distribuicao_numericos = st.container(border=True)
-distribuicao_numericos.pyplot(
+st.pyplot(
     fig=distribuicao_anos(),
     width="stretch"
 )
@@ -84,7 +84,7 @@ municipio_escolhido = progressao_analfabetismo.selectbox(
     options=nomes_municipios(),
     key=3
 )
-progressao_analfabetismo.pyplot(
+st.pyplot(
     fig=grafico_progressao_unico_municipio(
         municipio_escolhido
     ),
@@ -102,7 +102,7 @@ municipios_escolhidos = grafico_comparativo.multiselect(
     default=["São Luís", "Imperatriz"]
 )
 if(len(municipios_escolhidos) > 1):
-    grafico_comparativo.pyplot(
+    st.pyplot(
         fig=grafico_progressao_municipios(municipios_escolhidos),
         width="stretch"
     )
