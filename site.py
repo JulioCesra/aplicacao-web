@@ -69,7 +69,6 @@ st.pyplot(
 st.subheader(
     "Visualização da Distribuição dos Valores Númericos de Cada Ano"
 )
-distribuicao_numericos = st.container(border=True)
 st.pyplot(
     fig=distribuicao_anos(),
     width="stretch"
